@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papan Pengumuman - OSIS SMP 31 Medan</title>
+    <link rel="icon" href="osis.png" type="image/png">
+    <link rel="apple-touch-icon" href="osis.png">
+    <meta name="msapplication-TileImage" content="osis.png">
+    <meta name="msapplication-TileColor" content="#007bff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { background: #f8f9fa; }
+        .announcement-list { margin-top: 40px; }
+        .announcement-item { border-radius: 8px; margin-bottom: 1.5rem; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .announcement-item .card-body { padding: 1.5rem; }
+        .announcement-item:not(:last-child) { margin-bottom: 1.5rem; }
+        .announcement-badge { font-size: 0.9rem; padding: 0.4em 0.8em; }
+        .announcement-date { font-size: 0.95rem; color: #888; }
+        .announcement-item:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important; }
+        @media (max-width: 576px) {
+            .announcement-item .card-body { padding: 1rem; }
+        }
+        .badge-custom {
+          font-size: 0.95rem;
+          padding: 0.5em 1em;
+          border-radius: 20px;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+          display: inline-flex;
+          align-items: center;
+        }
+        .badge-siswa { background: #007bff; color: #fff; }
+        .badge-informasi { background: #17a2b8; color: #fff; }
+        .badge-acara { background: #ffc107; color: #212529; }
+        .badge-pengingat { background: #dc3545; color: #fff; }
+    </style>
+</head>
+<body class="fade-in">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <img src="osis.png" alt="OSIS SMP 31 Medan" height="40" class="mr-2">
+                <span>OSIS SMP 31 Medan</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="tentang-osis.html">Tentang OSIS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="galeri.html">Galeri Foto</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="pengumuman.html">Pengumuman</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://forms.gle/goxJRH5qwv8v4Rdd8" target="_blank">Kritik & Saran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="kontak.html">Kontak</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Section -->
+    <section class="bg-primary text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="mb-0 slide-in-left">Papan Pengumuman</h1>
+                </div>
+                <div class="col-md-6">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent p-0 m-0 justify-content-md-end slide-in-right">
+                            <li class="breadcrumb-item"><a href="index.html" class="text-white">Beranda</a></li>
+                            <li class="breadcrumb-item active text-white" aria-current="page">Pengumuman</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Animation -->
+    <div id="loading-animation" class="loading-overlay">
+        <div class="loading-content">
+            <div class="spinner-container">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+            </div>
+            <div class="mt-3 text-center">
+                <h5 class="mb-1">SMP 31 Medan</h5>
+                <p class="mb-0 loading-text">Memuat... <span id="loading-progress">0</span>%</p>
+            </div>
+            <div class="fun-fact-loading">
+                <i class="fas fa-lightbulb text-warning mr-2"></i>
+                <span id="fun-fact-text">Tahukah kamu? OSIS pertama kali dibentuk pada tahun 1970-an sebagai wadah kegiatan siswa di sekolah.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Announcement Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- Announcement List -->
+                    <div class="mb-4 slide-in-left">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Cari pengumuman..." id="search-announcement">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="announcement-list">
+                        <!-- Announcement Item 1 -->
+                        <div class="card announcement-item shadow-sm fade-in" style="animation-delay: 0.1s">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <span class="badge badge-custom badge-siswa mr-2">
+                                        <i class="fas fa-user-graduate mr-1"></i> Untuk Siswa
+                                    </span>
+                                    <small class="text-muted">
+                                        <i class="far fa-calendar-alt mr-1"></i> 1 Agustus 2025
+                                    </small>
+                                </div>
+                                <h4 class="card-title">Kegiatan GO GREEN</h4>
+                                <p class="card-text">Dalam rangka melaksanakan program "GO GREEN" sekolah kita</p>
+                                <a href="#" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#announcementModal1">Baca Selengkapnya</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation" class="zoom-in" style="animation-delay: 0.6s">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Sebelumnya</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="2">Selanjutnya</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="col-lg-4 slide-in-right" style="animation-delay: 0.3s">
+                    <!-- Categories -->
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0">Kategori</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group list-group-flush">
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    Untuk Siswa
+                                    <span class="badge badge-primary badge-pill">1</span>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    17 Agustust 
+                                    <span class="badge badge-primary badge-pill">(admin belum membuat)</span>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    Informasi Penting
+                                    <span class="badge badge-primary badge-pill">(admin belum membuat)</span>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    Religi
+                                    <span class="badge badge-primary badge-pill">(admin belum membuat)</span>
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                    Pengingat Siswa
+                                    <span class="badge badge-primary badge-pill">(admin belum membuat)</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="modal fade" id="announcementModal1" tabindex="-1" aria-labelledby="announcementModal1Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="announcementModal1Label">Kegiatan GO GREEN</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <span class="badge badge-custom badge-siswa mr-2">
+                            <i class="fas fa-user-graduate mr-1"></i> Untuk Siswa
+                        </span>
+                        <small class="text-muted">
+                            <i class="far fa-calendar-alt mr-1"></i> 1 Agustus 2025
+                        </small>
+                        <small class="text-muted ml-3"><i class="far fa-user mr-1"></i> Admin OSIS</small>
+                    </div>
+                    
+                    <p>Dalam rangka melaksanakan program "GO GREEN" sekolah kita, maka akan dilaksanakan:</p>
+                    <h5>Hari/tgl: Sabtu, 9 Agustus 2025.</h5>
+                    <h5>Pukul: 07.30.</h5>
+                   <p>Partisipasi dari tiap kelas bukan per orang untuk membawa:
+                    3 BUNGA ATAU POHON YANG AKAN DITANAM.</p>
+                    <h3>TUJUAN PROGRAM:</h3>
+                    <p>Untuk membuat sekolah kita menjadi sekolah yang lebih asri.
+
+                        Demikian pemberitahuan ini kami sampaikan.
+                        Atas kerjasama nya, kami ucapkan terimakasih.
+                        </p>
+                    <p>Salam hormat kami, 
+                        OSIS UPT SMPN 31 MEDAN🙏🏻</p>
+                                        
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle mr-2"></i>Pengingat Untuk Kamu!:-
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary">NO DATA FOR PDF</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Show loading animation on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show loading overlay
+            const loadingAnimation = document.getElementById('loading-animation');
+            loadingAnimation.classList.remove('d-none');
+            
+            // Fun facts untuk loading screen
+            const funFacts = [
+                "Tahukah kamu? OSIS pertama kali dibentuk pada tahun 1970-an sebagai wadah kegiatan siswa di sekolah.",
+                "OSIS adalah singkatan dari Organisasi Siswa Intra Sekolah yang berarti organisasi di dalam lingkungan sekolah.",
+                "Kegiatan OSIS dapat membantu meningkatkan kemampuan kepemimpinan dan soft skill siswa.",
+                "Setiap anggota OSIS dapat belajar cara berorganisasi yang baik sebagai bekal di masa depan.",
+
+            ];
+            
+            // Tampilkan fun fact secara acak
+            const funFactText = document.getElementById('fun-fact-text');
+            let currentFactIndex = 0;
+            
+            function changeFunFact() {
+                // Fade out
+                funFactText.style.opacity = 0;
+                
+                setTimeout(function() {
+                    // Ganti teks
+                    currentFactIndex = (currentFactIndex + 1) % funFacts.length;
+                    funFactText.textContent = funFacts[currentFactIndex];
+                    
+                    // Fade in
+                    funFactText.style.opacity = 1;
+                }, 500);
+            }
+            
+            // Ganti fun fact setiap 4 detik
+            const funFactInterval = setInterval(changeFunFact, 4000);
+            
+            // Simulasi progress loading
+            let progress = 0;
+            const progressElement = document.getElementById('loading-progress');
+            const progressInterval = setInterval(function() {
+                progress += Math.floor(Math.random() * 10) + 1;
+                if (progress > 100) progress = 100;
+                progressElement.textContent = progress;
+                
+                if (progress === 100) {
+                    clearInterval(progressInterval);
+                    clearInterval(funFactInterval);
+                    
+                    setTimeout(function() {
+                        loadingAnimation.classList.add('d-none');
+                        document.querySelector('.fun-fact-loading').classList.add('fade-in');
+                        
+                        // Animasi untuk semua elemen dengan kelas animated-element
+                        animateElements();
+                    }, 500);
+                }
+            }, 200);
+        });
+        
+        // Animasi elemen saat scroll
+        function animateElements() {
+            const elements = document.querySelectorAll('.card, .slide-in-left, .slide-in-right, .fade-in, .zoom-in');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+        
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Initialize datepicker if needed
+        if (typeof $.fn.datepicker !== 'undefined') {
+            $('.datepicker').datepicker();
+        }
+
+        $(document).ready(function() {
+            // Search functionality
+            $("#search-announcement").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $(".announcement-item").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+            
+            // Tambahkan efek hover untuk card announcements
+            $(".announcement-item").hover(
+                function() {
+                    $(this).addClass("shadow");
+                },
+                function() {
+                    $(this).removeClass("shadow");
+                }
+            );
+        });
+    </script>
+</body>
+</html>
